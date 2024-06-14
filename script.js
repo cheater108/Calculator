@@ -3,9 +3,7 @@ function resultOutput(res) {
         return "0";
     }
     if (res.length > 1 && res[0] === "0") {
-        console.log("origin", res);
         res = res.slice(1, res.length);
-        console.log(res);
     }
     return res;
 }
@@ -28,11 +26,42 @@ function operationOutput(res, operation) {
     return res + operation;
 }
 
+function dotOutput(res) {
+    let dot = false;
+    let i = res.length - 1;
+    while (i > -1 && res[i] !== " ") {
+        if (res[i] === ".") {
+            dot = true;
+            break;
+        }
+        i--;
+    }
+    if (dot) {
+        return res;
+    }
+
+    return res + ".";
+}
+
 function ansOutput(res) {
     if (res.includes("x")) {
         res = res.replaceAll("x", "*");
     }
-    return eval(res).toString();
+    let ans = 0;
+    try {
+        ans = eval(res);
+        if (ans % 1 === 0) {
+            return ans.toString();
+        }
+        ans = ans.toString();
+        if (ans.length - ans.indexOf(".") - 1 > 2) {
+            ans = Number(ans).toFixed(3).toString();
+        }
+        return ans;
+    } catch (e) {
+        return "Error";
+    }
+    return ans;
 }
 function initializeCalculator() {
     let output = "";
@@ -47,6 +76,7 @@ function initializeCalculator() {
 
     const reset = document.querySelector("#reset");
     const equal = document.querySelector("#equal");
+    const dot = document.querySelector("#dot");
 
     for (let num of nums) {
         num.addEventListener("click", () => {
@@ -64,33 +94,39 @@ function initializeCalculator() {
 
     add.addEventListener("click", () => {
         output = operationOutput(output, " + ");
-        result.innerHTML = output;
+        result.innerHTML = resultOutput(output);
     });
 
     minus.addEventListener("click", () => {
         output = operationOutput(output, " - ");
-        result.innerHTML = output;
+        result.innerHTML = resultOutput(output);
     });
 
     divide.addEventListener("click", () => {
         output = operationOutput(output, " / ");
-        result.innerHTML = output;
+        result.innerHTML = resultOutput(output);
     });
 
     multiply.addEventListener("click", () => {
         output = operationOutput(output, " x ");
-        result.innerHTML = output;
+        result.innerHTML = resultOutput(output);
     });
 
     reset.addEventListener("click", () => {
         output = "0";
         result.innerText = output;
+        output = "";
     });
 
     equal.addEventListener("click", () => {
         output = ansOutput(output);
         result.innerText = output;
         output = "0";
+    });
+
+    dot.addEventListener("click", () => {
+        output = dotOutput(output);
+        result.innerText = output;
     });
 }
 document.addEventListener("DOMContentLoaded", initializeCalculator);

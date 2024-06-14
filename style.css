@@ -5,8 +5,14 @@
 }
 
 html {
-    font-size: min(1vmax, 16px);
-    /* font-size: 16px; */
+    /* font-size: min(1vmax, 16px); */
+    font-size: 16px;
+}
+
+@media (max-width: 533px) {
+    html {
+        font-size: 12px;
+    }
 }
 
 body {
@@ -51,7 +57,7 @@ body {
     padding: 1em;
     flex-wrap: wrap;
     gap: 12px;
-    justify-content: center;
+    /* justify-content: center; */
 }
 .small-btn {
     font-size: 1.8rem;
@@ -64,7 +70,7 @@ body {
     border-radius: 12px;
     width: 23%;
     min-width: 80px;
-    flex-grow: 1;
+    /* flex-grow: 1; */
 }
 .big-btns {
     display: flex;
