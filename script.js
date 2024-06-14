@@ -121,7 +121,7 @@ function initializeCalculator() {
     equal.addEventListener("click", () => {
         output = ansOutput(output);
         result.innerText = output;
-        output = "0";
+        // output = "0";
     });
 
     dot.addEventListener("click", () => {
